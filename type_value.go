@@ -6,7 +6,7 @@ type jSONValue[T any] struct {
 	value T
 }
 
-func (j jSONValue[T]) Get(key any) JSONElement {
+func (j jSONValue[T]) Get(key any) JSONElement { //nolint: revive // interface implementation method
 	return nonExistent{}
 }
 
@@ -26,7 +26,7 @@ func (j jSONValue[T]) NumberValue() (float64, bool) {
 	var vi any = j.value
 	// convert any number value to float64
 	var y float64
-	var found bool = true
+	found := true
 	switch v := vi.(type) {
 	case int:
 		y = float64(v)

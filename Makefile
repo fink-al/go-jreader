@@ -8,6 +8,7 @@ GOFUMPT_PACKAGE := mvdan.cc/gofumpt@v0.5.0
 GOLANGBADGE_PACKAGE := github.com/jpoles1/gopherbadger@latest
 GO_VULNCHECK := golang.org/x/vuln/cmd/govulncheck@latest
 GODOC_PACKAGE := golang.org/x/tools/cmd/godoc@latest
+GOLANGCI_PACKAGE := github.com/golangci/golangci-lint/cmd/golangci-lint@v1.55.2
 
 GOTESTFLAGS := -timeout 360s -cover -coverprofile .cover.out
 ifeq ($(RACE_ENABLED),true)
@@ -48,8 +49,15 @@ update-go:
 #########
 
 .PHONY: lint-go-vuln
-lint-go-vuln:
+lint-go-vuln: $(GO_SOURCES)
 	go run $(GO_VULNCHECK) ./...
+
+.PHONY: lint-go
+lint-go: $(GO_SOURCES)
+	go run $(GOLANGCI_PACKAGE) --color=always run
+
+.PHONY: lint
+lint: lint-go lint-go-vuln
 
 #########
 # TEST

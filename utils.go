@@ -37,7 +37,3 @@ func getZeroValue[T any]() T {
 	var v T
 	return v
 }
-
-func createPointer[T any](v T) *T {
-	return &v
-}

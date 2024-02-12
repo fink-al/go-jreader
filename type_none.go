@@ -4,7 +4,7 @@ type (
 	nonExistent struct{}
 )
 
-func (n nonExistent) Get(key any) JSONElement {
+func (n nonExistent) Get(key any) JSONElement { //nolint: revive // interface implementation method
 	return nonExistent{}
 }
 

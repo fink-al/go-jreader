@@ -12,9 +12,8 @@ func (j jSONSlice) Get(key any) JSONElement {
 	case int:
 		if key < len(j) {
 			return findTypeOfValue(j[key])
-		} else {
-			return nonExistent{}
 		}
+		return nonExistent{}
 	default:
 		return nonExistent{}
 	}
@@ -41,9 +40,8 @@ func (j jSONMapSlice) Get(key any) JSONElement {
 	case int:
 		if key < len(j) {
 			return findTypeOfValue(j[key])
-		} else {
-			return nonExistent{}
 		}
+		return nonExistent{}
 	default:
 		return nonExistent{}
 	}

@@ -105,14 +105,22 @@ tidy:
 .PHONY: patch
 patch: node_modules
 	npx versions -p patch
+	@make readme-version
 
 .PHONY: minor
 minor: node_modules
 	npx versions -p minor
+	@make readme-version
 
 .PHONY: major
 major: node_modules
 	npx versions -p major
+	@make readme-version
+
+.PHONY: readme-version
+readme-version:
+	@sed -i '' -E "s/img.shields.io\/badge\/Version-v[0-9]+\.[0-9]+\.[0-9]+/img.shields.io\/badge\/Version-$$(git describe --abbrev=0)/g" README.md
+	@git add README.md
 
 #########
 # DOCUMENTATION

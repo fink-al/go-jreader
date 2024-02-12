@@ -25,3 +25,19 @@ func fromString(s string) (JSONElement, error) {
 	}
 	return nil, err
 }
+
+func safeAccessPointer[T any](p *T) T {
+	if p == nil {
+		return getZeroValue[T]()
+	}
+	return *p
+}
+
+func getZeroValue[T any]() T {
+	var v T
+	return v
+}
+
+func createPointer[T any](v T) *T {
+	return &v
+}

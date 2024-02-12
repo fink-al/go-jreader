@@ -1,31 +1,37 @@
 package jreader
 
-type JSONMap map[string]any
+import "encoding/json"
 
-func (j JSONMap) Get(key any) JSONElement {
+type jSONMap map[string]any
+
+func (j jSONMap) Get(key any) JSONElement {
 	switch key := key.(type) {
 	case string:
 		if v, ok := j[key]; ok {
 			return findTypeOfValue(v)
 		}
 	default:
-		return NonExistent{}
+		return nonExistent{}
 	}
-	return NonExistent{}
+	return nonExistent{}
 }
 
-func (j JSONMap) Value() (any, bool) {
+func (j jSONMap) Value() (any, bool) {
 	return j, true
 }
 
-func (j JSONMap) BooleanValue() (bool, bool) {
+func (j jSONMap) BooleanValue() (bool, bool) {
 	return false, false
 }
 
-func (j JSONMap) NumberValue() (float64, bool) {
+func (j jSONMap) NumberValue() (float64, bool) {
 	return 0, false
 }
 
-func (j JSONMap) StringValue() (string, bool) {
-	return "", false
+func (j jSONMap) StringValue() (string, bool) {
+	jsonBytes, err := json.Marshal(j)
+	if err != nil {
+		return "", false
+	}
+	return string(jsonBytes), true
 }

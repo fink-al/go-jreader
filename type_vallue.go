@@ -1,18 +1,20 @@
 package jreader
 
-type JSONValue[T any] struct {
+import "fmt"
+
+type jSONValue[T any] struct {
 	value T
 }
 
-func (j JSONValue[T]) Get(key any) JSONElement {
-	return NonExistent{}
+func (j jSONValue[T]) Get(key any) JSONElement {
+	return nonExistent{}
 }
 
-func (j JSONValue[T]) Value() (any, bool) {
+func (j jSONValue[T]) Value() (any, bool) {
 	return j.value, true
 }
 
-func (j JSONValue[T]) BooleanValue() (bool, bool) {
+func (j jSONValue[T]) BooleanValue() (bool, bool) {
 	var vi any = j.value
 	if v, ok := vi.(bool); ok {
 		return v, true
@@ -20,18 +22,50 @@ func (j JSONValue[T]) BooleanValue() (bool, bool) {
 	return false, false
 }
 
-func (j JSONValue[T]) NumberValue() (float64, bool) {
+func (j jSONValue[T]) NumberValue() (float64, bool) {
 	var vi any = j.value
-	if v, ok := vi.(float64); ok {
-		return v, true
+	// convert any number value to float64
+	var y float64
+	var found bool = true
+	switch v := vi.(type) {
+	case int:
+		y = float64(v)
+	case int8:
+		y = float64(v)
+	case int16:
+		y = float64(v)
+	case int32:
+		y = float64(v)
+	case int64:
+		y = float64(v)
+	case uint:
+		y = float64(v)
+	case uint8:
+		y = float64(v)
+	case uint16:
+		y = float64(v)
+	case uint32:
+		y = float64(v)
+	case uint64:
+		y = float64(v)
+	case float32:
+		y = float64(v)
+	case float64:
+		y = v
+	default:
+		found = false
 	}
-	return 0, false
+	return y, found
 }
 
-func (j JSONValue[T]) StringValue() (string, bool) {
+func (j jSONValue[T]) StringValue() (string, bool) {
 	var vi any = j.value
 	if v, ok := vi.(string); ok {
 		return v, true
+	} else if v, ok := vi.(bool); ok {
+		return fmt.Sprintf("%v", v), true
+	} else if v, ok := vi.(float64); ok {
+		return fmt.Sprintf("%v", v), true
 	}
 	return "", false
 }

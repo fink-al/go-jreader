@@ -1,64 +1,70 @@
 package jreader
 
+import "encoding/json"
+
 type (
-	JSONSlice    []any
-	JSONMapSlice []map[string]any
+	jSONSlice    []any
+	jSONMapSlice []map[string]any
 )
 
-func (j JSONSlice) Get(key any) JSONElement {
+func (j jSONSlice) Get(key any) JSONElement {
 	switch key := key.(type) {
 	case int:
 		if key < len(j) {
 			return findTypeOfValue(j[key])
 		} else {
-			return NonExistent{}
+			return nonExistent{}
 		}
 	default:
-		return NonExistent{}
+		return nonExistent{}
 	}
 }
 
-func (j JSONSlice) Value() (any, bool) {
+func (j jSONSlice) Value() (any, bool) {
 	return j, true
 }
 
-func (j JSONMapSlice) BooleanValue() (bool, bool) {
+func (j jSONMapSlice) BooleanValue() (bool, bool) {
 	return false, false
 }
 
-func (j JSONMapSlice) NumberValue() (float64, bool) {
+func (j jSONMapSlice) NumberValue() (float64, bool) {
 	return 0, false
 }
 
-func (j JSONMapSlice) StringValue() (string, bool) {
+func (j jSONMapSlice) StringValue() (string, bool) {
 	return "", false
 }
 
-func (j JSONMapSlice) Get(key any) JSONElement {
+func (j jSONMapSlice) Get(key any) JSONElement {
 	switch key := key.(type) {
 	case int:
 		if key < len(j) {
 			return findTypeOfValue(j[key])
 		} else {
-			return NonExistent{}
+			return nonExistent{}
 		}
 	default:
-		return NonExistent{}
+		return nonExistent{}
 	}
 }
 
-func (j JSONMapSlice) Value() (any, bool) {
+func (j jSONMapSlice) Value() (any, bool) {
 	return j, true
 }
 
-func (j JSONSlice) BooleanValue() (bool, bool) {
+func (j jSONSlice) BooleanValue() (bool, bool) {
 	return false, false
 }
 
-func (j JSONSlice) NumberValue() (float64, bool) {
+func (j jSONSlice) NumberValue() (float64, bool) {
 	return 0, false
 }
 
-func (j JSONSlice) StringValue() (string, bool) {
-	return "", false
+func (j jSONSlice) StringValue() (string, bool) {
+	jsonBytes, err := json.Marshal(j)
+	if err != nil {
+		return "", false
+	}
+	return string(jsonBytes), true
 }

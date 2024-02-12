@@ -1,25 +1,25 @@
 package jreader
 
 type (
-	NonExistent struct{}
+	nonExistent struct{}
 )
 
-func (n NonExistent) Get(key any) JSONElement {
-	return NonExistent{}
+func (n nonExistent) Get(key any) JSONElement {
+	return nonExistent{}
 }
 
-func (n NonExistent) Value() (any, bool) {
+func (n nonExistent) Value() (any, bool) {
 	return nil, false
 }
 
-func (n NonExistent) BooleanValue() (bool, bool) {
+func (n nonExistent) BooleanValue() (bool, bool) {
 	return false, false
 }
 
-func (n NonExistent) NumberValue() (float64, bool) {
+func (n nonExistent) NumberValue() (float64, bool) {
 	return 0, false
 }
 
-func (n NonExistent) StringValue() (string, bool) {
+func (n nonExistent) StringValue() (string, bool) {
 	return "", false
 }

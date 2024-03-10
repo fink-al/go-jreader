@@ -24,7 +24,8 @@ go get github.com/fink-al/go-jreader
 //
 //  []byte | string | map[string]any | []any |
 //  []map[string]any | *[]byte | *string |
-//  *map[string]any | *[]any | *[]map[string]any
+//  *map[string]any | *[]any | *[]map[string]any |
+//  map[string]string | *map[string]string
 //
 data, err := jreader.Load("{\"a\": 1}")
 data.Get("a").NumberValue() // returns 1, true

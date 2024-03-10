@@ -37,3 +37,11 @@ func getZeroValue[T any]() T {
 	var v T
 	return v
 }
+
+func toGeneralMap[V any](m map[string]V) map[string]any {
+	gm := make(map[string]any)
+	for k, v := range m {
+		gm[k] = v
+	}
+	return gm
+}

@@ -1,8 +1,8 @@
 # go-jreader
 
 [![goversion-tag-do-not-edit](https://img.shields.io/badge/Go%20Version-1.18-blue.svg)](https://shields.io/)
-<a href='https://github.com/jpoles1/gopherbadger' target='_blank'>![gopherbadger-tag-do-not-edit](https://img.shields.io/badge/Go%20Coverage-65%25-brightgreen.svg?longCache=true&style=flat)</a>
-[![app-tag-do-not-edit](https://img.shields.io/badge/Version-v1.0.0-green.svg)](https://shields.io/)
+<a href='https://github.com/jpoles1/gopherbadger' target='_blank'>![gopherbadger-tag-do-not-edit](https://img.shields.io/badge/Go%20Coverage-66%25-brightgreen.svg?longCache=true&style=flat)</a>
+[![app-tag-do-not-edit](https://img.shields.io/badge/Version-v1.0.1-green.svg)](https://shields.io/)
 
 Safely read specific values from nested JSON objects, maps or slices.
 Small, zero dependency wrapper interface that allows to use optional chaining in go.

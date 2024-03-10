@@ -1,6 +1,9 @@
 package jreader
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"log"
+)
 
 type jSONMap map[string]any
 
@@ -31,6 +34,7 @@ func (j jSONMap) NumberValue() (float64, bool) {
 func (j jSONMap) StringValue() (string, bool) {
 	jsonBytes, err := json.Marshal(j)
 	if err != nil {
+		log.Default().Printf("Error marshalling JSONMap: %s", err.Error())
 		return "", false
 	}
 	return string(jsonBytes), true

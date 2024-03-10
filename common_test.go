@@ -250,6 +250,13 @@ func TestLoadDifferentTypes(t *testing.T) {
 			}
 			return nil
 		}, false},
+		{"11: jreader.Load string", args{map[string]string{"a": "1"}}, func(t *testing.T, got jreader.JSONElement, gotErr error) error {
+			if v, ok := got.Get("a").NumberValue(); !ok || v != float64(1) {
+				t.Errorf("jreader.Load() = %v, want %v", v, 1)
+				return fmt.Errorf("jreader.Load() = %v, want %v", v, 1)
+			}
+			return nil
+		}, false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

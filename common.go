@@ -1,6 +1,8 @@
 package jreader
 
-import "fmt"
+import (
+	"fmt"
+)
 
 // Interface for any type of JSON element
 type JSONElement interface {
@@ -20,12 +22,13 @@ type JSONElement interface {
 }
 
 type JSONData interface {
-	[]byte | string | map[string]any | []any | []map[string]any | *[]byte | *string | *map[string]any | *[]any | *[]map[string]any | any
+	[]byte | string | map[string]any | []any | []map[string]any | *[]byte | *string |
+		*map[string]any | *[]any | *[]map[string]any | any | map[string]string | *map[string]string
 }
 
 // Load JSON data into a JSONElement. Source data may be of type:
 //
-//	[]byte | string | map[string]any | []any | []map[string]any | *[]byte | *string | *map[string]any | *[]any | *[]map[string]any
+//	[]byte | string | map[string]any | []any | []map[string]any | *[]byte | *string | *map[string]any | *[]any | *[]map[string]any | map[string]string | *map[string]string
 func Load[D JSONData](data D) (JSONElement, error) {
 	// type switch
 	var dany any = data
@@ -34,23 +37,29 @@ func Load[D JSONData](data D) (JSONElement, error) {
 		return fromString(string(t))
 	case string:
 		return fromString(t)
+	case *string:
+		return fromString(safeAccessPointer(t))
+	case *[]byte:
+		return fromString(string(safeAccessPointer(t)))
 	case map[string]any:
 		return jSONMap(t), nil
+	case *map[string]any:
+		return jSONMap(safeAccessPointer(t)), nil
 	case []any:
 		return jSONSlice(t), nil
 	case []map[string]any:
 		return jSONMapSlice(t), nil
-	case *[]byte:
-		return fromString(string(safeAccessPointer(t)))
-	case *string:
-		return fromString(safeAccessPointer(t))
-	case *map[string]any:
-		return jSONMap(safeAccessPointer(t)), nil
 	case *[]any:
 		return jSONSlice(safeAccessPointer(t)), nil
 	case *[]map[string]any:
 		return jSONMapSlice(safeAccessPointer(t)), nil
+	case map[string]string:
+		// map[string]string to map[string]any
+		return jSONMap(toGeneralMap(t)), nil
+	case *map[string]string:
+		return jSONMap(toGeneralMap(safeAccessPointer(t))), nil
 	default:
+		// TODO Marshal structs as default
 		return nil, fmt.Errorf("unsupported type: %T", t)
 	}
 }

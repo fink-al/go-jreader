@@ -1,6 +1,9 @@
 package jreader
 
-import "fmt"
+import (
+	"fmt"
+	"strconv"
+)
 
 type jSONValue[T any] struct {
 	value T
@@ -52,6 +55,14 @@ func (j jSONValue[T]) NumberValue() (float64, bool) {
 		y = float64(v)
 	case float64:
 		y = v
+	case string:
+		// try convert string to float64
+		f, err := strconv.ParseFloat(v, 64)
+		if err != nil {
+			found = false
+		} else {
+			y = f
+		}
 	default:
 		found = false
 	}

@@ -38,6 +38,13 @@ func TestLoadString(t *testing.T) {
 			}
 			return nil
 		}, false},
+		{"3: single layer hierarchy, single element with list value int", args{"{\"a\": [1, 2, 3]}"}, func(t *testing.T, got jreader.JSONElement, gotErr error) error {
+			if v, ok := got.Get("a").SliceValue(); !ok || len(v) != 3 {
+				t.Errorf("jreader.Load() = %v %T, want %v %T", v, v, 3, 3)
+				return fmt.Errorf("jreader.Load() = %v, want %v", v, 2)
+			}
+			return nil
+		}, false},
 		{"4: single layer hierarchy, single element with list value int", args{"{\"a\": [1, 2, 3]}"}, func(t *testing.T, got jreader.JSONElement, gotErr error) error {
 			if v, ok := got.Get("b").Get(1).Value(); ok || v != nil {
 				t.Errorf("jreader.Load() = %v, want %v", v, nil)
@@ -250,8 +257,22 @@ func TestLoadDifferentTypes(t *testing.T) {
 			}
 			return nil
 		}, false},
+		{"10: jreader.Load slice", args{&[]map[string]any{{"a": 1}, {"b": 2}}}, func(t *testing.T, got jreader.JSONElement, gotErr error) error {
+			if v, ok := got.SliceValue(); !ok || len(v) != 2 {
+				t.Errorf("jreader.Load() = %v, want %v", v, 2)
+				return fmt.Errorf("jreader.Load() = %v, want %v", v, 2)
+			}
+			return nil
+		}, false},
 		{"11: jreader.Load string", args{map[string]string{"a": "1"}}, func(t *testing.T, got jreader.JSONElement, gotErr error) error {
 			if v, ok := got.Get("a").NumberValue(); !ok || v != float64(1) {
+				t.Errorf("jreader.Load() = %v, want %v", v, 1)
+				return fmt.Errorf("jreader.Load() = %v, want %v", v, 1)
+			}
+			return nil
+		}, false},
+		{"11: jreader.Load map", args{map[string]string{"a": "1"}}, func(t *testing.T, got jreader.JSONElement, gotErr error) error {
+			if v, ok := got.MapValue(); !ok || v["a"] != "1" {
 				t.Errorf("jreader.Load() = %v, want %v", v, 1)
 				return fmt.Errorf("jreader.Load() = %v, want %v", v, 1)
 			}

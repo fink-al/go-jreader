@@ -80,3 +80,11 @@ func (j jSONValue[T]) StringValue() (string, bool) {
 	}
 	return "", false
 }
+
+func (j jSONValue[T]) MapValue() (map[string]any, bool) {
+	return map[string]any{}, false
+}
+
+func (j jSONValue[T]) SliceValue() ([]any, bool) {
+	return []any{}, false
+}

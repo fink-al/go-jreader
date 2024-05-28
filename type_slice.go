@@ -51,6 +51,18 @@ func (j jSONMapSlice) Value() (any, bool) {
 	return j, true
 }
 
+func (j jSONMapSlice) MapValue() (map[string]any, bool) {
+	return map[string]any{}, false
+}
+
+func (j jSONMapSlice) SliceValue() ([]any, bool) {
+	res := []any{}
+	for _, v := range j {
+		res = append(res, v)
+	}
+	return res, true
+}
+
 func (j jSONSlice) BooleanValue() (bool, bool) {
 	return false, false
 }
@@ -65,4 +77,12 @@ func (j jSONSlice) StringValue() (string, bool) {
 		return "", false
 	}
 	return string(jsonBytes), true
+}
+
+func (j jSONSlice) MapValue() (map[string]any, bool) {
+	return map[string]any{}, false
+}
+
+func (j jSONSlice) SliceValue() ([]any, bool) {
+	return j, true
 }

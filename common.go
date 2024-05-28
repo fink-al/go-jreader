@@ -19,6 +19,10 @@ type JSONElement interface {
 	// bool, int and float64 values are stringified using fmt.Sprintf("%v", value)
 	// map and slice are stringified using json.Marshal
 	StringValue() (string, bool)
+	// If the element is a map, return the map value; otherwise return false and empty map
+	MapValue() (map[string]any, bool)
+	// If the element is a slice, return the slice value; otherwise return false and empty slice
+	SliceValue() ([]any, bool)
 }
 
 type JSONData interface {

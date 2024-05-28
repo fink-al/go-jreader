@@ -39,3 +39,11 @@ func (j jSONMap) StringValue() (string, bool) {
 	}
 	return string(jsonBytes), true
 }
+
+func (j jSONMap) MapValue() (map[string]any, bool) {
+	return j, true
+}
+
+func (j jSONMap) SliceValue() ([]any, bool) {
+	return []any{}, false
+}

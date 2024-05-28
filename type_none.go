@@ -23,3 +23,11 @@ func (n nonExistent) NumberValue() (float64, bool) {
 func (n nonExistent) StringValue() (string, bool) {
 	return "", false
 }
+
+func (n nonExistent) MapValue() (map[string]any, bool) {
+	return map[string]any{}, false
+}
+
+func (n nonExistent) SliceValue() ([]any, bool) {
+	return []any{}, false
+}

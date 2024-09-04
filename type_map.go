@@ -47,3 +47,15 @@ func (j jSONMap) MapValue() (map[string]any, bool) {
 func (j jSONMap) SliceValue() ([]any, bool) {
 	return []any{}, false
 }
+
+func (j jSONMap) MapJSONElementValue() (map[string]JSONElement, bool) {
+	res := map[string]JSONElement{}
+	for k, v := range j {
+		res[k] = findTypeOfValue(v)
+	}
+	return res, true
+}
+
+func (j jSONMap) SliceJSONElementValue() ([]JSONElement, bool) {
+	return []JSONElement{}, false
+}

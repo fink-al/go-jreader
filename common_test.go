@@ -296,3 +296,44 @@ func TestLoadDifferentTypes(t *testing.T) {
 func createPointer[T any](v T) *T {
 	return &v
 }
+
+func TestLoadAndLoop(t *testing.T) {
+	jso := `
+		{
+			"glossary": {
+					"title": "example glossary",
+			"GlossDiv": {
+							"title": "S",
+				"GlossList": {
+									"GlossEntry": {
+											"ID": "SGML",
+						"SortAs": "SGML",
+						"GlossTerm": "Standard Generalized Markup Language",
+						"Acronym": "SGML",
+						"Abbrev": "ISO 8879:1986",
+						"GlossDef": {
+													"para": "A meta-markup language, used to create markup languages such as DocBook.",
+							"GlossSeeAlso": ["GML", "XML"]
+											},
+						"GlossSee": "markup"
+									}
+							}
+					}
+			}
+	}
+		`
+	got, err := jreader.Load(jso)
+	if err != nil {
+		t.Errorf("jreader.TestLoadAndLoop() error = %v", err)
+	}
+	jev, ok := got.Get("glossary").Get("GlossDiv").MapJSONElementValue()
+	if !ok {
+		t.Errorf("jreader.TestLoadAndLoop() map nok")
+	}
+	for _, v := range jev { // key was "GlossList"; first value is "title"
+		sv, ok := v.Get("GlossEntry").Get("GlossTerm").StringValue()
+		if ok && sv != "Standard Generalized Markup Language" {
+			t.Errorf("jreader.TestLoadAndLoop() got: %s; want: %s", sv, "Standard Generalized Markup Language")
+		}
+	}
+}

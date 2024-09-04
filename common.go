@@ -21,8 +21,10 @@ type JSONElement interface {
 	StringValue() (string, bool)
 	// If the element is a map, return the map value; otherwise return false and empty map
 	MapValue() (map[string]any, bool)
+	MapJSONElementValue() (map[string]JSONElement, bool)
 	// If the element is a slice, return the slice value; otherwise return false and empty slice
 	SliceValue() ([]any, bool)
+	SliceJSONElementValue() ([]JSONElement, bool)
 }
 
 type JSONData interface {

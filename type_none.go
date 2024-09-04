@@ -31,3 +31,12 @@ func (n nonExistent) MapValue() (map[string]any, bool) {
 func (n nonExistent) SliceValue() ([]any, bool) {
 	return []any{}, false
 }
+
+func (n nonExistent) MapJSONElementValue() (map[string]JSONElement, bool) {
+	mvn := map[string]JSONElement{}
+	return mvn, false
+}
+
+func (n nonExistent) SliceJSONElementValue() ([]JSONElement, bool) {
+	return []JSONElement{}, false
+}

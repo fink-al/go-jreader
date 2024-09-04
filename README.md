@@ -1,7 +1,7 @@
 # go-jreader
 
 [![goversion-tag-do-not-edit](https://img.shields.io/badge/Go%20Version-1.18-blue.svg)](https://shields.io/)
-<a href='https://github.com/jpoles1/gopherbadger' target='_blank'>![gopherbadger-tag-do-not-edit](https://img.shields.io/badge/Go%20Coverage-64%25-brightgreen.svg?longCache=true&style=flat)</a>
+<a href='https://github.com/jpoles1/gopherbadger' target='_blank'>![gopherbadger-tag-do-not-edit](https://img.shields.io/badge/Go%20Coverage-58%25-brightgreen.svg?longCache=true&style=flat)</a>
 [![app-tag-do-not-edit](https://img.shields.io/badge/Version-v1.0.2-green.svg)](https://shields.io/)
 
 Safely read specific values from nested JSON objects, maps or slices.

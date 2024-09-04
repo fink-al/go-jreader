@@ -88,3 +88,12 @@ func (j jSONValue[T]) MapValue() (map[string]any, bool) {
 func (j jSONValue[T]) SliceValue() ([]any, bool) {
 	return []any{}, false
 }
+
+func (n jSONValue[T]) MapJSONElementValue() (map[string]JSONElement, bool) {
+	mvn := map[string]JSONElement{}
+	return mvn, false
+}
+
+func (n jSONValue[T]) SliceJSONElementValue() ([]JSONElement, bool) {
+	return []JSONElement{}, false
+}

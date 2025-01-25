@@ -1,3 +1,4 @@
+//nolint:revive // test struct needs to be equal
 package jreader_test
 
 import (

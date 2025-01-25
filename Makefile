@@ -4,11 +4,11 @@ export GOPATH ?= $(shell go env GOPATH)
 endif
 
 GOTESTSUM_PACKAGE := gotest.tools/gotestsum@latest
-GOFUMPT_PACKAGE := mvdan.cc/gofumpt@v0.5.0
+GOFUMPT_PACKAGE := mvdan.cc/gofumpt@v0.7.0
 GOLANGBADGE_PACKAGE := github.com/jpoles1/gopherbadger@latest
 GO_VULNCHECK := golang.org/x/vuln/cmd/govulncheck@latest
 GODOC_PACKAGE := golang.org/x/tools/cmd/godoc@latest
-GOLANGCI_PACKAGE := github.com/golangci/golangci-lint/cmd/golangci-lint@v1.55.2
+GOLANGCI_PACKAGE := github.com/golangci/golangci-lint/cmd/golangci-lint@v1.61.0
 
 GOTESTFLAGS := -timeout 360s -cover -coverprofile .cover.out
 ifeq ($(RACE_ENABLED),true)

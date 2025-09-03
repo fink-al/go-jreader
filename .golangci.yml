@@ -19,10 +19,10 @@ linters:
     # - errchkjson
     - errname
     - errorlint
-    - execinquery
+    #- execinquery
     - exhaustive
     # - exhaustruct
-    - exportloopref
+    #- exportloopref
     - forbidigo
     # - forcetypeassert
     # - funlen
